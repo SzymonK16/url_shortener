@@ -5,4 +5,4 @@ link_router = APIRouter()
 
 @link_router.post("/links")
 async def get_links(link: Link):
-    print()
+    return {"url": link.url}
