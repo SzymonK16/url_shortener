@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from src.schemas.links_schema import Link
+from src.schemas.urls_schema import Link
 link_router = APIRouter()
 
 
