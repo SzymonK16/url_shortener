@@ -12,6 +12,10 @@ class Settings(BaseSettings):
     URL_TIME: int
     BASE_URL: str
 
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
+    POSTGRES_DB: str
+
     class Config:
         env_file = ENV_PATH
 

@@ -1,4 +1,4 @@
 from fastapi import FastAPI
-from src.routers.urls import url_router
+from src.routers.post_url import post_url
 app = FastAPI()
-app.include_router(url_router)
+app.include_router(post_url)
