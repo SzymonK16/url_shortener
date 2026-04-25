@@ -1,6 +1,7 @@
 import time
 import uuid
 
+from src.config.config import get_settings
 from fastapi import APIRouter, Depends
 from src.database.url_model import UrlModel
 from src.utils.expire_time import expire_time
@@ -11,7 +12,7 @@ from datetime import datetime
 from src.database.db_core import get_db
 
 post_url = APIRouter()
-
+settings = get_settings()
 @post_url.post("/short", response_model=UrlResponse)
 async def get_links(request: UrlRequest, db: Session = Depends(get_db)):
 
@@ -28,5 +29,10 @@ async def get_links(request: UrlRequest, db: Session = Depends(get_db)):
 
     db.add(db_url)
     db.commit()
+    db.refresh(db_url)
 
+    return UrlResponse(
+        short_url=f'{settings.BASE_URL}/{db_url.short_url}',
+        expires_at=str(expires_at)
+    )
 

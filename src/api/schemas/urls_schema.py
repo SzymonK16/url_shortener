@@ -6,5 +6,5 @@ class UrlRequest(BaseModel):
 
 class UrlResponse(BaseModel):
     short_url: str
-    expires_in: int
+    expires_at: str
     
