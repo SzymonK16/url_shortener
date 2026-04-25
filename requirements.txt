@@ -2,4 +2,6 @@ fastapi==0.128.8
 sqlalchemy==2.0.49
 dotenv==0.9.9
 pydantic==2.13.1
+pydantic-settings
+uvicorn==0.39.0
 psycopg2-binary==2.9.11
