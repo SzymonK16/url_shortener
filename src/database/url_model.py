@@ -3,9 +3,9 @@ from sqlalchemy import Column, Integer, String, LargeBinary, ForeignKey, DateTim
 from sqlalchemy.orm import declarative_base, relationship
 
 
-base = declarative_base()
+Base = declarative_base()
 
-class UrlModel(base):
+class UrlModel(Base):
     __tablename__ = 'urls'
 
     id = Column(Integer, primary_key=True)
