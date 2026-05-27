@@ -9,7 +9,8 @@ ENV_PATH = os.path.join(BASE_DIR, ".env")
 
 
 class Settings(BaseSettings):
-    URL_TIME: int
+    TTL_UNUSED_CLEAR_DAYS: int
+    CLEAR_SCRIPT_INTERVAL: int
     BASE_URL: str
 
     CASSANDRA_CLUSTER_NAME: str
