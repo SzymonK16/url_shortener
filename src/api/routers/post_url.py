@@ -25,11 +25,11 @@ def get_links(request: UrlRequest, db=Depends(get_db)):  # <- Usunięto 'async'
 
 
     query = """
-            INSERT INTO urls (short_url, original_url, created_at, expires_at)
-            VALUES (%s, %s, %s, %s) USING TTL %s \
+            INSERT INTO urls (short_url, original_url, created_at, last_used_at)
+            VALUES (%s, %s, %s, %s)
             """
 
-    db.execute(query, (short_url, str(request.url), now, expires_at, ttl_seconds))
+    db.execute(query, (short_url, str(request.url), now, now))
 
     return UrlResponse(
         short_url=f'{settings.BASE_URL}/{short_url}',
