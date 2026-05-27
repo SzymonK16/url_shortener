@@ -54,6 +54,17 @@ services:
       cassandra-node1:
         condition: service_healthy
 
+  cleaner-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.cleaner
+    env_file:
+      - .env
+    depends_on:
+      cassandra-node1:
+        condition: service_healthy
+
+
 
 volumes:
   cassandra_data1:
