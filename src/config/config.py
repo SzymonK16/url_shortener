@@ -12,9 +12,10 @@ class Settings(BaseSettings):
     URL_TIME: int
     BASE_URL: str
 
-    POSTGRES_USER: str
-    POSTGRES_PASSWORD: str
-    POSTGRES_DB: str
+    CASSANDRA_CLUSTER_NAME: str
+    CASSANDRA_SNTCH: str
+    CASSANDRA_DC: str
+    CASSANDRA_SEEDS:str
 
     class Config:
         env_file = ENV_PATH

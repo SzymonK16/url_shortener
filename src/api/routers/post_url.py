@@ -1,38 +1,37 @@
-import time
 import uuid
-
-from src.config.config import get_settings
-from fastapi import APIRouter, Depends
-from src.database.url_model import UrlModel
-from src.utils.expire_time import expire_time
-from sqlalchemy.orm.session import Session
-from src.utils.encode_base64 import encode_base62
-from src.api.schemas.urls_schema import *
 from datetime import datetime
+from fastapi import APIRouter, Depends, HTTPException
 from src.database.db_core import get_db
+from src.utils.encode_base64 import encode_base62
+from src.api.schemas.urls_schema import UrlRequest, UrlResponse
+from src.config.config import get_settings
+from src.utils.expire_time import expire_time
 
 post_url = APIRouter()
 settings = get_settings()
+
+
 @post_url.post("/short", response_model=UrlResponse)
-async def get_links(request: UrlRequest, db: Session = Depends(get_db)):
+def get_links(request: UrlRequest, db=Depends(get_db)):  # <- Usunięto 'async'
 
     unique_id = uuid.uuid4().int >> 90
     short_url = encode_base62(unique_id)
+
+    now = datetime.now()
+
     expires_at = expire_time()
 
-    db_url = UrlModel(
-        original_url=str(request.url),
-        short_url=short_url,
-        created_at=datetime.now(),
-        expires_at=expires_at,
-    )
+    ttl_seconds = int((expires_at - now).total_seconds())
 
-    db.add(db_url)
-    db.commit()
-    db.refresh(db_url)
+
+    query = """
+            INSERT INTO urls (short_url, original_url, created_at, expires_at)
+            VALUES (%s, %s, %s, %s) USING TTL %s \
+            """
+
+    db.execute(query, (short_url, str(request.url), now, expires_at, ttl_seconds))
 
     return UrlResponse(
-        short_url=f'{settings.BASE_URL}/{db_url.short_url}',
+        short_url=f'{settings.BASE_URL}/{short_url}',
         expires_at=str(expires_at)
     )
-
