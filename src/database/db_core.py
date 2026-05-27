@@ -22,7 +22,7 @@ class CassandraProvider:
             short_url text PRIMARY KEY,
             original_url text,
             created_at timestamp,
-            expires_at timestamp);
+            last_used_at timestamp);
         """)
 
     def close(self):
