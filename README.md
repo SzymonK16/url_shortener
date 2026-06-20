@@ -1,5 +1,4 @@
-# URL Shortener with Asynchronous Moderation
-
+# URL Shortener 
 This is a university project developed for a course assignment. It demonstrates the use of distributed architecture and event streaming.
 
 ## Architecture & Data Flow
