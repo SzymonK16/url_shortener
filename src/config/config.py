@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     TTL_UNUSED_CLEAR_DAYS: int
     CLEAR_SCRIPT_INTERVAL: int
     BASE_URL: str
+    REDIR_URL: str
 
     CASSANDRA_CLUSTER_NAME: str
     CASSANDRA_SNTCH: str

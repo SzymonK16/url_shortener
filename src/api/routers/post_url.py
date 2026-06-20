@@ -28,5 +28,5 @@ def get_links(request: UrlRequest, db=Depends(get_db)):
 
 
     return UrlResponse(
-        short_url=f'{settings.BASE_URL}/{short_url}'
+        short_url=f'{settings.REDIR_URL}/{short_url}'
     )
